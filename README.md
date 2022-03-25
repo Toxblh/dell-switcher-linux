@@ -3,7 +3,7 @@
 ![](_repo/tray.png)
 ![](_repo/notif.png)
 
-Able to switch to Type-C from DP/HDMI via <kbd>Alt</kbd>+<kbd>s</kbd> or via tray menu
+Able to switch to Type-C from DP/HDMI via <kbd>Alt</kbd>+<kbd>s</kbd> or tray menu
 
 Required installed `ddcutil` and `notify-send`  
 `ddcutil` should be granted work without root access.
