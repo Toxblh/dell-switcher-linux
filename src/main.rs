@@ -20,6 +20,16 @@ fn main() {
     })
     .unwrap();
 
+    tray.add_menu_item("Switch to Type-C", || {
+        brigtness_up();
+    })
+    .unwrap();
+
+    tray.add_menu_item("Switch to Type-C", || {
+        brigtness_down();
+    })
+    .unwrap();
+
     tray.add_menu_item("Quit", || {
         gtk::main_quit();
     })
@@ -30,11 +40,10 @@ fn main() {
 
 fn register_hk() {
     let mut hk = hotkey::Listener::new();
-    hk.register_hotkey(hotkey::modifiers::ALT, 's' as u32, || do_switch())
+    hk.register_hotkey(hotkey::modifiers::ALT, hotkey::keys::END, || do_switch())
         .unwrap();
 
     hk.listen();
-    println!("Listening for hotkeys...");
 }
 
 fn notify(title: &str, message: &str) {
@@ -44,8 +53,18 @@ fn notify(title: &str, message: &str) {
     command.output().unwrap();
 }
 
+fn brigtness_up() {
+    let output = Command::new("ddcutil")
+        .arg("--bus=5")
+        .arg("setvcp")
+        .arg("60")
+        .arg("0x19")
+        .output()
+}
+
 fn do_switch() {
-    notify("DELL Switcher", "Switch to Type-C");
+    // notify("DELL Switcher", "Switch to Type-C");
+
 
     let output = Command::new("ddcutil")
         .arg("--bus=5")
